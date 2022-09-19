@@ -5,6 +5,7 @@ players = []
 stats   = []
 player_num = 0
 
+# rk id name team pos gms tgts rec pct yds td lng y/t y/r att yds avg td fum lst ppg ppr
 for season_year in range(2010,2022):
     fname_full = "./data/season/wr/" + str(season_year) + ".txt"
 
