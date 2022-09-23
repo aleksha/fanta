@@ -1,7 +1,7 @@
-players = []
 stats   = []
 
 
+players = []
 player_num = 0
 # rk id name team pos gms cmp pas pct yds avg td int rat att yds avg td ppg ppr
 #            0    1   2   3   4   5   6   7   8  9   10  11  12  13  14  15  16
@@ -47,8 +47,8 @@ for season_year in range(2010,2022):
 
 print("\t Season data is loaded for QB")
 
+players = []
 player_num = 0
-
 # rk id name team pos gms att yds avg td tgts rec yds td fum lst ppg ppr
 for season_year in range(2010,2022):
     fname_full = "./data/season/rb/" + str(season_year) + ".txt"
@@ -92,8 +92,8 @@ for season_year in range(2010,2022):
 
 print("\t Season data is loaded for WR")
 
+players = []
 player_num = 0
-
 # rk id name team pos gms tgts rec pct yds td lng y/t y/r att yds avg td fum lst ppg ppr
 for season_year in range(2010,2022):
     fname_full = "./data/season/te/" + str(season_year) + ".txt"
@@ -136,6 +136,7 @@ for season_year in range(2010,2022):
 
 print("\t Season data is loaded for TE")
 
+players = []
 player_num = 0
 # rk id name team pos gms tgts rec pct yds td lng y/t y/r att yds avg td fum lst ppg ppr
 for season_year in range(2010,2022):
