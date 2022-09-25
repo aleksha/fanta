@@ -14,3 +14,9 @@ def find_id( request , season_data = season_data ):
                 id_list.append( p["id"] )
                 print( str(p["id"]) + "\t" + p["pos"] + "\t" + p["name"] )
 
+def select( id , season_data = season_data ):
+    id_list = []
+    for p in season_data:
+        if p["id"] == id:
+            id_list.append( p )
+    return( id_list )
