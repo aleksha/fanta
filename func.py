@@ -1,4 +1,5 @@
 from load_data import stats as season_data
+from scoring import scoring
 import re
 
 def find_name( id, season_data = season_data ):
@@ -51,6 +52,24 @@ def info( id , season_data = season_data ):
         ss += i2s(p["cmt"]) + i2s(p["pas"]) + i2s(p["paY"]) + i2s(p["paTD"]) + i2s(p["int"]) + " |"
         ss += i2s(p["tgts"])+ i2s(p["rec"]) + i2s(p["reY"]) + i2s(p["reTD"]) + " |"
         ss += i2s(p["att"]) + i2s(p["ruY"]) + i2s(p["ruTD"]) + i2s(p["fum"]) + " |"
+        print( ss )
+    print(" ======================================================================================")
+    return( 1 )
+
+def fantasy( id , season_data = season_data , s = scoring ):
+    id_list = select( id, season_data )
+    if not len(id_list):
+        return( 0 )
+    print(" ======================================================================================")
+    print(" | " + id_list[0]["name"] + "  ( " + id_list[0]["pos"] + " )" )
+    print(" ======================================================================================")
+    print(" | year |  GMS |                                                                      |")
+    print(" ======================================================================================")
+    for p in id_list:
+        ss  = " | " + str(p["season"]) + " |"  + i2s(p["gm"]) + " |"
+        ss += i2s(p["paY"]*s["paY"]) + i2s(p["paTD"]*s["paTD"]) + i2s(p["int"]*s["int"]) + " |"
+        ss += i2s(p["rec"]*s["rec"]) + i2s(p["reY"]*s["reY"]) + i2s(p["reTD"]*s["reTD"]) + " |"
+        ss += i2s(p["ruY"]*s["ruY"]) + i2s(p["ruTD"]*s["ruTD"]) + i2s(p["fum"]*s["fum"]) + " |"
         print( ss )
     print(" ======================================================================================")
     return( 1 )
