@@ -38,6 +38,7 @@ def i2s(n):
         return( str("  ")+str(n) )
     return( str(" ")+str(n) )
 
+
 def info( id , season_data = season_data ):
     id_list = select( id, season_data )
     if not len(id_list):
@@ -56,22 +57,40 @@ def info( id , season_data = season_data ):
     print(" ======================================================================================")
     return( 1 )
 
+
+def calc( p , s = scoring ):
+    ss  = p["paY"]*s["paY"] + p["paTD"]*s["paTD"] + p["int"]*s["int"]
+    ss += p["rec"]*s["rec"] + p["reY"]*s["reY"]   + p["reTD"]*s["reTD"]
+    ss += p["ruY"]*s["ruY"] + p["ruTD"]*s["ruTD"] + p["fum"]*s["fum"]
+    return( int(ss) )
+
 def fantasy( id , season_data = season_data , s = scoring ):
     id_list = select( id, season_data )
     if not len(id_list):
         return( 0 )
-    print(" ======================================================================================")
+    print(" =============================================================================================")
     print(" | " + id_list[0]["name"] + "  ( " + id_list[0]["pos"] + " )" )
-    print(" ======================================================================================")
-    print(" | year |  GMS |                                                                      |")
-    print(" ======================================================================================")
+    print(" =============================================================================================")
+    print(" | year |  GMS |                                                                             |")
+    print(" =============================================================================================")
     for p in id_list:
         ss  = " | " + str(p["season"]) + " |"  + i2s(p["gm"]) + " |"
-        ss += i2s(p["paY"]*s["paY"]) + i2s(p["paTD"]*s["paTD"]) + i2s(p["int"]*s["int"]) + " |"
-        ss += i2s(p["rec"]*s["rec"]) + i2s(p["reY"]*s["reY"]) + i2s(p["reTD"]*s["reTD"]) + " |"
-        ss += i2s(p["ruY"]*s["ruY"]) + i2s(p["ruTD"]*s["ruTD"]) + i2s(p["fum"]*s["fum"]) + " |"
+        ss += i2s(p["paY"]*s["paY"]) + i2s(p["paTD"]*s["paTD"]) + i2s(p["int"]*s["int"])   + " |"
+        ss += i2s(p["rec"]*s["rec"]) + i2s(p["reY"]*s["reY"])   + i2s(p["reTD"]*s["reTD"]) + " |"
+        ss += i2s(p["ruY"]*s["ruY"]) + i2s(p["ruTD"]*s["ruTD"]) + i2s(p["fum"]*s["fum"])   + " |"
+        ss += i2s( calc(p,scoring) ) + " |"
         print( ss )
-    print(" ======================================================================================")
+    print(" =============================================================================================")
     return( 1 )
 
 
+def top( year, pos, num=28, season_data = season_data , s = scoring ):
+    id_list = []
+    for p in season_data:
+        if p["season"] == year and p["pos"] == pos:
+            id_list.append( { "player": p, "fps": calc(p, scoring) } )
+    nl =  sorted(id_list, key=lambda d: -d['fps'])
+    print(" Top " + str(num) + " " + pos + " of " + str(year) + " :")
+    print(" -------------------------------------------------------")
+    for i in range(num):
+        print( " " + str( nl[i]["player"]["name"] ) + "\t" + str(nl[i]["fps"]) )
