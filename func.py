@@ -19,4 +19,4 @@ def select( id , season_data = season_data ):
     for p in season_data:
         if p["id"] == id:
             id_list.append( p )
-    return( id_list )
+    return( sorted(id_list, key=lambda d: d['id'])  )
