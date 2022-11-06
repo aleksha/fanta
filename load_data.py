@@ -1,5 +1,20 @@
 stats   = []
 
+mnl = 0
+mnn = ""
+
+def upn(p, m, n):
+    if len(p["name"])>m:
+        m = len(p["name"])
+        n = p["name"]
+    return m, n
+
+def short_name( name, max_length = 25 ):
+    v = name.split(" ")
+    a = v[0] + " " + v[1]
+    while len(a)<max_length:
+        a += " "
+    return a
 
 players = []
 player_num = 0
@@ -23,7 +38,7 @@ for season_year in range(2010,2022):
             if not is_header:
                 player = {
                     "id"    : int( players[player_num][1] ) ,
-                    "name"  : players[player_num][2]        ,
+                    "name"  : short_name( players[player_num][2] )        ,
                     "season": season_year                   ,
                     "team"  : w[0]                          ,
                     "pos"   : w[1]                          ,
@@ -43,6 +58,7 @@ for season_year in range(2010,2022):
                     "reTD"  : 0                             ,
                     "fum"   : 0                             }
                 stats.append( player )
+                mnl, mnn = upn( player, mnl, player["name"] )
                 player_num+=1
 
 print("\t Season data is loaded for QB")
@@ -68,7 +84,7 @@ for season_year in range(2010,2022):
             if not is_header:
                 player = {
                     "id"    : int( players[player_num][1] ) ,
-                    "name"  : players[player_num][2]        ,
+                    "name"  : short_name( players[player_num][2] )        ,
                     "season": season_year                   ,
                     "team"  : w[0]                          ,
                     "pos"   : w[1]                          ,
@@ -87,6 +103,7 @@ for season_year in range(2010,2022):
                     "int"   : 0                             ,
                     "fum"   : int( w[11] )                  }
                 stats.append( player )
+                mnl, mnn = upn( player, mnl, player["name"] )
                 player_num+=1
 
 
@@ -113,7 +130,7 @@ for season_year in range(2010,2022):
             if not is_header:
                 player = {
                     "id"    : int( players[player_num][1] ) ,
-                    "name"  : players[player_num][2]        ,
+                    "name"  : short_name( players[player_num][2] )        ,
                     "season": season_year                   ,
                     "team"  : w[0]                          ,
                     "pos"   : w[1]                          ,
@@ -132,6 +149,7 @@ for season_year in range(2010,2022):
                     "int"   : 0                             ,
                     "fum"   : int( w[15] )                  }
                 stats.append( player )
+                mnl, mnn = upn( player, mnl, player["name"] )
                 player_num+=1
 
 print("\t Season data is loaded for TE")
@@ -157,7 +175,7 @@ for season_year in range(2010,2022):
             if not is_header:
                 player = {
                     "id"    : int( players[player_num][1] ) ,
-                    "name"  : players[player_num][2]        ,
+                    "name"  : short_name( players[player_num][2] )        ,
                     "season": season_year                   ,
                     "team"  : w[0]                          ,
                     "pos"   : w[1]                          ,
@@ -177,5 +195,10 @@ for season_year in range(2010,2022):
                     "fum"   : int( w[15] )                  }
                 stats.append( player )
                 player_num+=1
+                mnl, mnn = upn( player, mnl, player["name"] )
 
 print("\t Season data is loaded for RB")
+
+#print("\t Name with max length : "+str(mnn))
+#print("\t               length : "+str(mnl))
+
