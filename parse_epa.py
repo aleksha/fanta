@@ -1,4 +1,8 @@
-who="M.Stafford"
+#who="Mahom"
+#who="J.Allen"
+who="Burrow"
+who="Tagovailoa"
+who="J.Goff"
 import re
 import statistics as stat
 
