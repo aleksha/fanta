@@ -72,3 +72,5 @@ for season_year in range(2010,2023):
                 is_header = False
 
     f.close()
+
+print("\t EPA data for teams season is loaded")
