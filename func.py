@@ -96,3 +96,43 @@ def top( year, pos, num=28, season_data = season_data , s = scoring ):
     print(" -------------------------------------------------------")
     for i in range(num):
         print( " " + str( nl[i]["player"]["name"] ) + "\t" + str(nl[i]["fps"]) )
+
+def agregate_fps( years, pos, season_data = season_data , scoring = scoring ):
+    id_list = []
+    answer = []
+    for year in years:
+        for p in season_data:
+            if p["season"] == year and p["pos"] == pos:
+                if p["id"] not in id_list:
+                    curret_id = p["id"]
+                    np = {"id":p["id"], "name":p["name"], "fps":0., "gm":0}
+                    for pp in season_data:
+                        if pp["season"] in years:
+                            if pp["id"]==curret_id:
+                                np["fps"] += calc(pp, scoring)
+                                np["gm"] += pp["gm"]
+                    id_list.append(curret_id)
+                    answer.append( np )
+    return(answer)
+
+
+def make_top(years, pos, max_gm=12, num = 36, season_data=season_data, scoring=scoring):
+    a = agregate_fps(years,pos,season_data,scoring)
+    b = []
+    for p in a:
+        p["fpsgm"]=p["fps"]/float(p["gm"])
+        if p["gm"]>=max_gm:
+            b.append(p)
+    c = sorted(b,key=lambda d: -d["fpsgm"])
+    for i in range(num):
+        print(c[i])
+        if i==11 or i==23:
+            print()
+    return(c)
+
+def search_top(name,lst):
+    for p in lst:
+        if re.search(name,p["name"]):
+            print(lst.index(p)+1)
+            print(p)
+
