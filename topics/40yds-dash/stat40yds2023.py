@@ -16,14 +16,16 @@ a1 = []; a2 = []
 better = 0
 
 with open("WR2023-40yds.txt","r") as f:
+#with open("RB2023-40yds.txt","r") as f:
     for line in f:
-        w = line[:-1].split(",")
-        diff.append( float(w[1]) - float(w[2]) )
-        diff2.append( float(w[2]) - float(w[1]) )
-        a1.append( float(w[1]) )
-        a2.append( float(w[2]) )
-        if float(w[1]) - float(w[2])>0:
-            better += 1
+        if len(line)>5:
+            w = line[:-1].split(",")
+            diff.append( float(w[1]) - float(w[2]) )
+            diff2.append( float(w[2]) - float(w[1]) )
+            a1.append( float(w[1]) )
+            a2.append( float(w[2]) )
+            if float(w[1]) - float(w[2])>0:
+                better += 1
 
 print("Mean  : " + str(  mean(diff) ) + " +/- " + str( mean(diff)/sqrt( float(len(diff)) ) ) )
 print("Stdev : " + str( stdev(diff) ) )

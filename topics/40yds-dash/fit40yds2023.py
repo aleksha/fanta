@@ -17,11 +17,13 @@ if __name__=="__main__":
     #-------------------------------------------------------------------------------
     arg_set = ROOT.RooArgSet( im )
     ds = ROOT.RooDataSet( "ds", "ds", arg_set )
-    with open("WR2023-40yds.txt","r") as f:
+#    with open("WR2023-40yds.txt","r") as f:
+    with open("RB2023-40yds.txt","r") as f:
         for line in f:
-            w = line[:-1].split(",")
-            im.setVal( float(w[2]) - float(w[1]) )
-            ds.add( arg_set )
+            if len(line)>5:
+                w = line[:-1].split(",")
+                im.setVal( float(w[2]) - float(w[1]) )
+                ds.add( arg_set )
     #-------------------------------------------------------------------------------
     r, w = model.fitTo(ds, draw=True, nbins=18, ncpu=4)
     #-------------------------------------------------------------------------------
